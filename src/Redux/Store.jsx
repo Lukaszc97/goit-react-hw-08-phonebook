@@ -3,7 +3,7 @@ import contactsReducer from './SliceReducer';
 import { authReducer } from './auth/slice';
 import { FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER } from 'redux-persist';
 import storage from 'redux-persist/lib/storage/session';
-
+import  filterReducer  from './filterReducer';
 import { persistStore, persistReducer } from 'redux-persist'; 
 
 const authPersistConfig = {
@@ -14,6 +14,7 @@ const authPersistConfig = {
 
 const rootReducer = combineReducers({
   contacts: contactsReducer,
+  filter: filterReducer
 });
 
 export const store = configureStore({

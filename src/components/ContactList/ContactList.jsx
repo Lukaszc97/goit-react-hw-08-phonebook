@@ -22,7 +22,7 @@ Contact.propTypes = {
 
 const ContactList = () => {
   const contacts = useSelector((state) => state.contacts.contacts);
-  const filter = useSelector((state) => state.contacts.filter);
+  const filter = useSelector((state) => state.filter);
   const dispatch = useDispatch();
 
   const filteredContacts = contacts.filter((contact) =>
