@@ -6,7 +6,7 @@ import ContactForm from './ContactForm/ContactForm';
 import ContactList from './ContactList/ContactList';
 import Filter from './Filter/Filter';
 
-import { UserProfile } from './Form/UserProfile';
+import { UserProfile } from './Form/UserProfile/UserProfile';
 import { useAuth } from '../hooks/useAuth';
 import { selectError } from '../Redux/SliceReducer';
 import { refreshUser } from '../Redux/auth/operations';
@@ -42,6 +42,7 @@ function App() {
             <React.Suspense fallback={<div>Loading...</div>}>
               {isLoggedIn ? (
                 <>
+                 <Route path="/home" element={<HomePage />} />
                   <UserProfile />
                   <h2>Contacts</h2>
                   <ContactForm />
@@ -49,6 +50,7 @@ function App() {
                   <ContactList />
                   <p>Welcome, {user.name}!</p>
                   <UserMenu /> 
+                  <Route path="/tasks" element={<TasksPage />} />
                 </>
               ) : (
                 <>
@@ -58,10 +60,10 @@ function App() {
             </React.Suspense>
           }
         />
-        <Route path="/home" element={<HomePage />} />
+       
         <Route path="/registration" element={<RestrictedRoute redirectTo='/tasks' component={<RegistrationPage/>}/>} />
         <Route path="/login" element={<RestrictedRoute redirectTo='/tasks' component={<LoginPage/>}/>} />
-        <Route path="/tasks" element={<TasksPage />} />
+        
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
       {error && <p>Error: {error}</p>}

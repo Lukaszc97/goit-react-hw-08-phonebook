@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { refreshUser} from '../../Redux/auth/operations';
+import { refreshUser } from '../../../Redux/auth/operations';
+import styles from './UserProfile.module.css'; 
 
 export const UserProfile = () => {
   const user = useSelector((state) => state.user);
@@ -14,17 +15,16 @@ export const UserProfile = () => {
   };
 
   return (
-    <div>
-      <p>Welcome, {user.name}!</p>
+    <div className={styles.userProfileContainer}> 
+      <p className={styles.welcomeMessage}>Welcome, {user.name}!</p> 
       <input
         type="text"
         placeholder="New Name"
         value={newName}
         onChange={(e) => setNewName(e.target.value)}
+        className={styles.inputField} 
       />
-      <button onClick={handleUpdateProfile}>Update Profile</button>
+      <button onClick={handleUpdateProfile} className={styles.updateButton}>Update Profile</button> 
     </div>
   );
 };
-
-

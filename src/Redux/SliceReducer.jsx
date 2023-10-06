@@ -53,8 +53,8 @@ const contactsReducer = createSlice({
   },
 });
 
-export const selectContacts = (state) => state.contacts.contacts;
-export const selectLoading = (state) => state.contacts.isLoading;
-export const selectError = (state) => state.contacts.error;
+export const selectContacts = (state) => state.contacts;
+export const selectLoading = (state) => state.isLoading;
+export const selectError = (state) => state.error;
 export { createContactAsync };
 export default contactsReducer.reducer;

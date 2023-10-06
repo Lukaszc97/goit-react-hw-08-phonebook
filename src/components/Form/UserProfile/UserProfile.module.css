@@ -1,0 +1,31 @@
+.userProfileContainer {
+    text-align: center;
+    margin: 20px;
+  }
+  
+  .welcomeMessage {
+    font-size: 24px;
+    margin-bottom: 10px;
+  }
+  
+  .inputField {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  .updateButton {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    padding: 10px 20px;
+    cursor: pointer;
+  }
+  
+  .updateButton:hover {
+    background-color: #0056b3;
+  }
+  
