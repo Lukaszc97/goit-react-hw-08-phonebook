@@ -6,8 +6,11 @@ import ContactList from '../../components/ContactList/ContactList';
 import {UserMenu} from '../../components/Usermenu/UserMenu';
 import { useSelector } from 'react-redux';
 
+
 const ContactsPage = () => {
   const user = useSelector(state => state.auth.user);
+
+  
 
   return (
     <>
@@ -15,7 +18,7 @@ const ContactsPage = () => {
       <h2>Contacts</h2>
       <ContactForm />
       <Filter />
-      <ContactList />
+      <ContactList/>
       <p>Welcome, {user.name}!</p>
       <UserMenu />
     </>

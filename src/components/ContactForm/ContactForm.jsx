@@ -8,6 +8,7 @@ const ContactForm = () => {
   const dispatch = useDispatch();
   const contacts = useSelector(selectContacts);
 
+
   const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
 
@@ -16,7 +17,7 @@ const ContactForm = () => {
 
     if (name.trim() === '' || phone.trim() === '') return;
 
-    const contactExists = contacts.some((contact) => contact.name === name);
+    const contactExists = contacts?.some((contact) => contact.name === name);
 
     if (contactExists) {
       alert('Kontakt już istnieje.'); 

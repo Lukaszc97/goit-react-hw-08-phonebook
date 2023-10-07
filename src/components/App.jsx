@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Route, Routes, Navigate } from 'react-router-dom';
 import { Layout } from '../Layout/Layout';
 import { Navigation } from './Navigation/Navigation';
-
+import { fetchContactsAsync } from '../Redux/operations'; 
 import { useAuth } from '../hooks/useAuth';
 import { selectError } from '../Redux/SliceReducer';
 import { refreshUser } from '../Redux/auth/operations';
@@ -17,12 +17,16 @@ import Contacts from 'pages/Contacts/Contacts';
 function App() {
   const dispatch = useDispatch();
   const error = useSelector(selectError);
+  console.log(useSelector(state => state))
   const { isLoggedIn, isRefreshing, user } = useAuth();
 
   useEffect(() => {
     dispatch(refreshUser());
   }, [dispatch]);
 
+  useEffect(() => {
+    dispatch(fetchContactsAsync('contacts')); 
+  }, [dispatch]);
   return isRefreshing ? (
     <div>Refreshing user...</div>
   ) : (
