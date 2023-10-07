@@ -2,15 +2,15 @@ import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { refreshUser } from '../../../Redux/auth/operations';
 import styles from './UserProfile.module.css'; 
+import { selectorUser } from '../../../Redux/auth/selectors'; 
 
 export const UserProfile = () => {
-  const user = useSelector((state) => state.user);
+  const user = useSelector(selectorUser);
   const dispatch = useDispatch();
   const [newName, setNewName] = useState('');
 
   const handleUpdateProfile = () => {
     dispatch(refreshUser({ name: newName }));
-
     setNewName('');
   };
 
