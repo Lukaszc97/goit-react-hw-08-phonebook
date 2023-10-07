@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Route, Routes, Navigate } from 'react-router-dom';
 import { Layout } from '../Layout/Layout';
 import { Navigation } from './Navigation/Navigation';
-import { fetchContactsAsync } from '../Redux/operations'; 
+import { fetchContactsAsync } from '../Redux/operations';
 import { useAuth } from '../hooks/useAuth';
 import { selectError } from '../Redux/SliceReducer';
 import { refreshUser } from '../Redux/auth/operations';
@@ -14,7 +14,7 @@ import LoginPage from '../pages/Login/Login';
 import RegistrationPage from '../pages/Registration/Registration';
 import Home from '../components/Home/Home';
 import Contacts from 'pages/Contacts/Contacts';
-
+import { UserMenu } from '../components/Usermenu/UserMenu';
 function App() {
   const dispatch = useDispatch();
   const error = useSelector(selectError);
@@ -26,10 +26,10 @@ function App() {
   }, [dispatch]);
 
   useEffect(() => {
-    dispatch(fetchContactsAsync('contacts')); 
+    dispatch(fetchContactsAsync('contacts'));
   }, [dispatch]);
 
-console.log(useSelector(state=>state))
+  console.log(useSelector(state => state));
 
   return isRefreshing ? (
     <div>Refreshing user...</div>
@@ -37,7 +37,15 @@ console.log(useSelector(state=>state))
     <div style={{ margin: 'auto', textAlign: 'center' }}>
       <h1>Phonebook</h1>
 
-      {!isLoggedIn ? <AuthNav /> : <Navigation />}
+      {!isLoggedIn ? (
+        <AuthNav />
+      ) : (
+        <div>
+          <Navigation />
+          <UserMenu />
+        </div>
+      )}
+
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<Home />} />
@@ -62,10 +70,7 @@ console.log(useSelector(state=>state))
           <Route
             path="/contacts"
             element={
-              <PrivateRoute
-                redirectTo="/login"
-                component={<Contacts/>}
-              />
+              <PrivateRoute redirectTo="/login" component={<Contacts />} />
             }
           />
           {/* <Route path="/contacts" element={<Contacts />} /> */}
@@ -73,7 +78,7 @@ console.log(useSelector(state=>state))
         </Route>
       </Routes>
       {error && <p>Error: {error}</p>}
-      {isLoggedIn && <p>Welcome, {user.name}!</p>}
+      {/* {isLoggedIn && <p>Welcome, {user.name}!</p>} */}
     </div>
   );
 }
