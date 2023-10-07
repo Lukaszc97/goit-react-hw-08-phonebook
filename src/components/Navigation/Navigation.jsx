@@ -6,7 +6,7 @@ export const Navigation = () => {
   return (
     <nav className={styles.nav}> 
       <NavLink to="/" className={styles.NavLink}>Home</NavLink>
-      <NavLink to="/tasks" className={styles.NavLink}>Phonebook</NavLink> 
+      <NavLink to="/contacts" className={styles.NavLink}>Phonebook</NavLink> 
     </nav>
   );
 };

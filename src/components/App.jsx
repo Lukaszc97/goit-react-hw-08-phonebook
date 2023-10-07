@@ -13,12 +13,11 @@ import LoginPage from '../pages/Login/Login';
 import RegistrationPage from '../pages/Registration/Registration';
 import Home from '../components/Home/Home';
 import Contacts from 'pages/Contacts/Contacts';
-const ContactsPage = React.lazy(() => import('../pages/Contacts/Contacts'));
 
 function App() {
   const dispatch = useDispatch();
   const error = useSelector(selectError);
-  const { isLoggedIn, isRefreshing } = useAuth();
+  const { isLoggedIn, isRefreshing, user } = useAuth();
 
   useEffect(() => {
     dispatch(refreshUser());
@@ -27,19 +26,13 @@ function App() {
   return isRefreshing ? (
     <div>Refreshing user...</div>
   ) : (
-    
-      <div style={{ margin: 'auto', textAlign: 'center' }}>
-        <h1>Phonebook</h1>
+    <div style={{ margin: 'auto', textAlign: 'center' }}>
+      <h1>Phonebook</h1>
 
-        {!isLoggedIn && <Navigation />}
-
-        <AuthNav isLoggedIn={isLoggedIn} />
-        <Routes>
-          <Route
-            path="/" 
-            element={
-              <Layout/>}>
-                <Route index element={<Home/>} />
+      {!isLoggedIn ? <AuthNav /> : <Navigation />}
+      <Routes>
+        <Route path="/" element={<Layout />}>
+          <Route index element={<Home />} />
           <Route
             path="/registration"
             element={
@@ -52,16 +45,19 @@ function App() {
           <Route
             path="/login"
             element={
-              <RestrictedRoute redirectTo="/contacts" component={<LoginPage />} />
+              <RestrictedRoute
+                redirectTo="/contacts"
+                component={<LoginPage />}
+              />
             }
           />
-
+          <Route path="/contacts" element={<Contacts />} />
           <Route path="*" element={<Navigate to="/" replace />} />
-          </Route>
-        </Routes>
-        {error && <p>Error: {error}</p>}
-      </div>
-
+        </Route>
+      </Routes>
+      {error && <p>Error: {error}</p>}
+      {isLoggedIn && <p>Welcome, {user.name}!</p>}
+    </div>
   );
 }
 
