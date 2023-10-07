@@ -9,6 +9,7 @@ import { selectError } from '../Redux/SliceReducer';
 import { refreshUser } from '../Redux/auth/operations';
 import { AuthNav } from './AuthNav/AuthNav';
 import { RestrictedRoute } from './RestictedRoute';
+import { PrivateRoute } from './PrivateRoute';
 import LoginPage from '../pages/Login/Login';
 import RegistrationPage from '../pages/Registration/Registration';
 import Home from '../components/Home/Home';
@@ -17,7 +18,7 @@ import Contacts from 'pages/Contacts/Contacts';
 function App() {
   const dispatch = useDispatch();
   const error = useSelector(selectError);
-  console.log(useSelector(state => state))
+
   const { isLoggedIn, isRefreshing, user } = useAuth();
 
   useEffect(() => {
@@ -27,6 +28,9 @@ function App() {
   useEffect(() => {
     dispatch(fetchContactsAsync('contacts')); 
   }, [dispatch]);
+
+console.log(useSelector(state=>state))
+
   return isRefreshing ? (
     <div>Refreshing user...</div>
   ) : (
@@ -55,7 +59,16 @@ function App() {
               />
             }
           />
-          <Route path="/contacts" element={<Contacts />} />
+          <Route
+            path="/contacts"
+            element={
+              <PrivateRoute
+                redirectTo="/login"
+                component={<Contacts/>}
+              />
+            }
+          />
+          {/* <Route path="/contacts" element={<Contacts />} /> */}
           <Route path="*" element={<Navigate to="/" replace />} />
         </Route>
       </Routes>
