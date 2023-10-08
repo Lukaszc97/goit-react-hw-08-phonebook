@@ -2,7 +2,7 @@ import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import styles from './ContactList.module.css';
 import PropTypes from 'prop-types';
-import { deleteContactAsync } from '../../../Redux/operations';
+import { deleteContactAsync } from '../../../Redux/PhonebookReducer/operations';
 
 const Contact = ({ id, name, phone, onDeleteClick }) => {
   return (

@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import {
   createContactAsync,
   selectContacts,
-} from '../../../Redux/SliceReducer';
+} from '../../../Redux/PhonebookReducer/SliceReducer';
 import styles from './ContactForm.module.css';
 import { nanoid } from 'nanoid';
 

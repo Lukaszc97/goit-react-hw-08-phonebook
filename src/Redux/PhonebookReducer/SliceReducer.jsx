@@ -1,5 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { fetchContactsAsync, deleteContactAsync, createContactAsync } from './operations';
+import {
+  fetchContactsAsync,
+  deleteContactAsync,
+  createContactAsync,
+} from './operations';
 
 const contactsReducer = createSlice({
   name: 'contacts',
@@ -9,9 +13,9 @@ const contactsReducer = createSlice({
     error: null,
   },
   reducers: {},
-  extraReducers: (builder) => {
+  extraReducers: builder => {
     builder
-      .addCase(fetchContactsAsync.pending, (state) => {
+      .addCase(fetchContactsAsync.pending, state => {
         state.isLoading = true;
         state.error = null;
       })
@@ -24,7 +28,7 @@ const contactsReducer = createSlice({
         state.isLoading = false;
         state.error = action.payload;
       })
-      .addCase(createContactAsync.pending, (state) => {
+      .addCase(createContactAsync.pending, state => {
         state.isLoading = true;
         state.error = null;
       })
@@ -37,12 +41,14 @@ const contactsReducer = createSlice({
         state.isLoading = false;
         state.error = action.payload;
       })
-      .addCase(deleteContactAsync.pending, (state) => {
+      .addCase(deleteContactAsync.pending, state => {
         state.isLoading = true;
         state.error = null;
       })
       .addCase(deleteContactAsync.fulfilled, (state, action) => {
-        state.contacts = state.contacts.filter((contact) => contact.id !== action.payload);
+        state.contacts = state.contacts.filter(
+          contact => contact.id !== action.payload
+        );
         state.isLoading = false;
         state.error = null;
       })
@@ -53,8 +59,8 @@ const contactsReducer = createSlice({
   },
 });
 
-export const selectContacts = (state) => state.contacts.contacts;
-export const selectLoading = (state) => state.isLoading;
-export const selectError = (state) => state.error;
+export const selectContacts = state => state.contacts.contacts;
+export const selectLoading = state => state.isLoading;
+export const selectError = state => state.error;
 export { createContactAsync };
 export default contactsReducer.reducer;

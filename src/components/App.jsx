@@ -3,9 +3,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Route, Routes, Navigate } from 'react-router-dom';
 import { Layout } from '../Layout/Layout';
 import { Navigation } from './Navigation/Navigation';
-import { fetchContactsAsync } from '../Redux/operations';
+import { fetchContactsAsync } from '../Redux/PhonebookReducer/operations';
 import { useAuth } from '../hooks/useAuth';
-import { selectError } from '../Redux/SliceReducer';
+import { selectError } from '../Redux/PhonebookReducer/SliceReducer';
 import { refreshUser } from '../Redux/auth/operations';
 import { AuthNav } from './AuthNav/AuthNav';
 import { RestrictedRoute } from './RestictedRoute';
@@ -29,7 +29,6 @@ export function App() {
     dispatch(fetchContactsAsync('contacts'));
   }, [dispatch]);
 
-
   return isRefreshing ? (
     <div>Refreshing user...</div>
   ) : (
@@ -41,7 +40,6 @@ export function App() {
       ) : (
         <div>
           <Navigation />
-      
         </div>
       )}
 
@@ -78,14 +76,11 @@ export function App() {
               <PrivateRoute redirectTo="/login" component={<UserProfile />} />
             }
           /> */}
-       
+
           <Route path="*" element={<Navigate to="/" replace />} />
         </Route>
       </Routes>
       {error && <p>Error: {error}</p>}
-     
     </div>
   );
 }
-
-
