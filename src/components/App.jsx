@@ -14,7 +14,7 @@ import LoginPage from '../pages/Login/Login';
 import RegistrationPage from '../pages/Registration/Registration';
 import Home from '../components/Home/Home';
 import Contacts from 'pages/Contacts/Contacts';
-import { UserMenu } from '../components/Usermenu/UserMenu';
+
 import { UserProfile } from './Form/UserProfile/UserProfile';
 function App() {
   const dispatch = useDispatch();
@@ -43,7 +43,7 @@ function App() {
       ) : (
         <div>
           <Navigation />
-          <UserMenu />
+      
         </div>
       )}
 
