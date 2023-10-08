@@ -14,9 +14,8 @@ import LoginPage from '../pages/Login/Login';
 import RegistrationPage from '../pages/Registration/Registration';
 import Home from '../components/Home/Home';
 import Contacts from 'pages/Contacts/Contacts';
-
-import { UserProfile } from './Form/UserProfile/UserProfile';
-function App() {
+/* import { UserProfile } from './Form/UserProfile/UserProfile'; */
+export function App() {
   const dispatch = useDispatch();
   const error = useSelector(selectError);
 
@@ -30,7 +29,6 @@ function App() {
     dispatch(fetchContactsAsync('contacts'));
   }, [dispatch]);
 
-  console.log(useSelector(state => state));
 
   return isRefreshing ? (
     <div>Refreshing user...</div>
@@ -74,12 +72,12 @@ function App() {
               <PrivateRoute redirectTo="/login" component={<Contacts />} />
             }
           />
-           <Route
+          {/*  <Route
             path="/userProfile"
             element={
               <PrivateRoute redirectTo="/login" component={<UserProfile />} />
             }
-          />
+          /> */}
        
           <Route path="*" element={<Navigate to="/" replace />} />
         </Route>
@@ -90,4 +88,4 @@ function App() {
   );
 }
 
-export default App;
+
