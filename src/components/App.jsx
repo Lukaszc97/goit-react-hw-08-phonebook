@@ -15,11 +15,12 @@ import RegistrationPage from '../pages/Registration/Registration';
 import Home from '../components/Home/Home';
 import Contacts from 'pages/Contacts/Contacts';
 import { UserMenu } from '../components/Usermenu/UserMenu';
+import { UserProfile } from './Form/UserProfile/UserProfile';
 function App() {
   const dispatch = useDispatch();
   const error = useSelector(selectError);
 
-  const { isLoggedIn, isRefreshing, user } = useAuth();
+  const { isLoggedIn, isRefreshing } = useAuth();
 
   useEffect(() => {
     dispatch(refreshUser());
@@ -53,7 +54,7 @@ function App() {
             path="/registration"
             element={
               <RestrictedRoute
-                redirectTo="/contacts"
+                redirectTo="/login"
                 component={<RegistrationPage />}
               />
             }
@@ -73,12 +74,18 @@ function App() {
               <PrivateRoute redirectTo="/login" component={<Contacts />} />
             }
           />
-          {/* <Route path="/contacts" element={<Contacts />} /> */}
+           <Route
+            path="/userProfile"
+            element={
+              <PrivateRoute redirectTo="/login" component={<UserProfile />} />
+            }
+          />
+       
           <Route path="*" element={<Navigate to="/" replace />} />
         </Route>
       </Routes>
       {error && <p>Error: {error}</p>}
-      {/* {isLoggedIn && <p>Welcome, {user.name}!</p>} */}
+     
     </div>
   );
 }

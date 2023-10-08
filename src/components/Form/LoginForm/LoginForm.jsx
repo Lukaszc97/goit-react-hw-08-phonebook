@@ -1,46 +1,53 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import { logIn } from '../../../Redux/auth/operations';
-import styles from './LoginFrom.module.css';
+import { Container, Typography, Button } from '@mui/material'; 
+import TextInput from '../textInput'; // 
 
 export const LoginForm = () => {
   const dispatch = useDispatch();
 
-  const handleSubmit = e => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     const form = e.currentTarget;
 
     dispatch(
-      logIn({ 
+      logIn({
         email: form.elements.email.value,
-        password: form.elements.password.value 
+        password: form.elements.password.value,
       })
     );
     form.reset();
   };
 
   return (
-    <form className={styles.formContainer} onSubmit={handleSubmit}>
-      <label className={styles.label}>
-        Email
-        <input
-          type="email"
+    <Container component="main" maxWidth="xs">
+      <Typography variant="h5">Login</Typography>
+      <form onSubmit={handleSubmit}>
+        
+        <TextInput
           name="email"
-          className={styles.input}
+          label="Email"
           placeholder="email"
+          type="email"
         />
-      </label>
-      <label className={styles.label}>
-        Password
-        <input
-          type="password"
+        <TextInput
           name="password"
-          className={styles.input}
+          label="Password"
           placeholder="password"
+          type="password"
         />
-      </label>
-      <button type="submit" className={styles.button}>Login</button>
-    </form>
+      
+        <Button
+          type="submit"
+          fullWidth
+          variant="contained"
+          color="primary"
+        >
+          Login
+        </Button>
+      </form>
+    </Container>
   );
 };
 

@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+/* import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { refreshUser } from '../../../Redux/auth/operations';
+import { updateUserName } from '../../../Redux/auth/slice';
 import styles from './UserProfile.module.css'; 
 import { selectorUser } from '../../../Redux/auth/selectors'; 
 
@@ -10,6 +11,7 @@ export const UserProfile = () => {
   const [newName, setNewName] = useState('');
 
   const handleUpdateProfile = () => {
+    dispatch(updateUserName(newName));
     dispatch(refreshUser({ name: newName }));
     setNewName('');
   };
@@ -28,3 +30,4 @@ export const UserProfile = () => {
     </div>
   );
 };
+ */

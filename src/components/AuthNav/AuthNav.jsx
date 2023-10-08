@@ -1,18 +1,29 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
-import styles from "./AuthNav.module.css";
+import { Button } from "@mui/material"; 
+
 
 export const AuthNav = () => {
   return (
-    <div className={styles.authNav}>
-      <NavLink to="/registration" className={styles.navLink}>
+    <div>
+      <Button
+        variant="outlined"
+        color="primary"
+        component={NavLink}
+        to="/registration"
+       
+      >
         Register
-      </NavLink>
-      <NavLink to="/login" className={styles.navLink}>
+      </Button>
+      <Button
+        variant="outlined"
+        color="primary"
+        component={NavLink}
+        to="/login"
+        
+      >
         Log in
-      </NavLink>
+      </Button>
     </div>
   );
 };
-
-

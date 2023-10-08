@@ -1,7 +1,8 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import { register } from "../../../Redux/auth/operations";
-import styles from './Registration.module.css'; 
+import { Container, Typography, Button } from '@mui/material'; 
+import TextInput from '../textInput'; 
 
 export const RegistrationForm = () => {
   const dispatch = useDispatch();
@@ -22,35 +23,36 @@ export const RegistrationForm = () => {
   }
 
   return (
-    <form className={styles.formContainer} onSubmit={handleRegistration}>
-      <label className={styles.label}>
-        Username
-        <input
-          type="text"
+    <Container component="main" maxWidth="xs">
+      <Typography variant="h5">Registration</Typography>
+      <form onSubmit={handleRegistration}>
+        <TextInput
           name="name"
+          label="Username"
           placeholder="name"
-          className={styles.input}
+          type="text"
         />
-      </label>
-      <label className={styles.label}>
-        Email
-        <input
-          type="email"
+        <TextInput
           name="email"
+          label="Email Address"
           placeholder="email"
-          className={styles.input}
+          type="email"
         />
-      </label>
-      <label className={styles.label}>
-        Password
-        <input
-          type="password"
+        <TextInput
           name="password"
+          label="Password"
           placeholder="password"
-          className={styles.input}
+          type="password"
         />
-      </label>
-      <button type="submit" className={styles.button}>Registration</button>
-    </form>
+        <Button
+          type="submit"
+          fullWidth
+          variant="contained"
+          color="primary"
+        >
+          Registration
+        </Button>
+      </form>
+    </Container>
   );
 };
