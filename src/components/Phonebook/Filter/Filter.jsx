@@ -4,8 +4,8 @@ import { setFilter } from '../../../Redux/PhonebookReducer/filterReducer';
 import styles from './Filter.module.css';
 
 const Filter = () => {
-  const contacts = useSelector(state => state.contacts.contacts);
-  const filter = useSelector(state => state?.filter);
+  const contacts = useSelector(state => state.contacts.items);
+  const filter = useSelector(state => state.filter);
   const dispatch = useDispatch();
 
   const handleFilterChange = event => {
@@ -21,7 +21,7 @@ const Filter = () => {
         type="text"
         value={filter}
         onChange={handleFilterChange}
-        placeholder="Wyszukaj kontakty po nazwie"
+        placeholder="Search contacts by name"
         className={styles.input}
       />
     )

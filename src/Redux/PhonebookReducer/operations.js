@@ -1,48 +1,46 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import * as api from '../../api';
+import axios from 'axios';
+import { toast } from 'react-toastify';
+
+axios.defaults.baseURL = 'https://connections-api.herokuapp.com';
 
 export const fetchContactsAsync = createAsyncThunk(
-  'contacts/fetchContacts',
-  async (endpoint, { rejectWithValue }) => {
+  'contacts/fetchAll',
+  async (_, thunkAPI) => {
     try {
-      const contacts = await api.fetchContacts(endpoint);
-      return contacts;
+      const response = await axios.get('/contacts');
+      return response.data;
     } catch (error) {
-      return rejectWithValue(error.message);
+      toast.error('Oops. Something is wrong. Please try again!');
+      return thunkAPI.rejectWithValue(error.message);
     }
   }
 );
+
 export const createContactAsync = createAsyncThunk(
-  'contacts/createContact',
-  async ({ endpoint, contactData }, { rejectWithValue }) => {
+  'contacts/addContact',
+  async ({ name, number }, thunkAPI) => {
     try {
-      const newContact = await api.createContact(endpoint, contactData);
-      return newContact;
+      const response = await axios.post('/contacts', { name, number });
+      toast.success(`${name} is added to the contact list!`);
+      return response.data;
     } catch (error) {
-      return rejectWithValue(error.message);
+      toast.error('Oops. Something is wrong. Please try again!');
+      return thunkAPI.rejectWithValue(error.message);
     }
   }
 );
 
 export const deleteContactAsync = createAsyncThunk(
   'contacts/deleteContact',
-  async ({ endpoint, id }, { rejectWithValue }) => {
+  async (contactId, thunkAPI) => {
     try {
-      await api.deleteContact(endpoint, id);
-      return id;
+      const response = await axios.delete(`/contacts/${contactId}`);
+      toast.info(`This contact is delited from your phonebook!`);
+      return response.data;
     } catch (error) {
-      return rejectWithValue(error.message);
+      toast.error('Oops. Something is wrong. Please try again!');
+      return thunkAPI.rejectWithValue(error.message);
     }
   }
 );
-
-export const checkContactExistence = async (endpoint, contactData) => {
-  try {
-    const existingContacts = await api.fetchContacts(endpoint);
-    return existingContacts.some(contact => {
-      return contact.phone === contactData.phone;
-    });
-  } catch (error) {
-    throw error;
-  }
-};

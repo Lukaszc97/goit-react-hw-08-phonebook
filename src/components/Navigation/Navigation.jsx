@@ -13,9 +13,10 @@ export const Navigation = () => {
         <Button component={Link} to="/contacts" color="inherit">
           Phonebook
         </Button>
-        {/*  * <Button component={Link} to="/UserProfile" color="inherit">
-         Change Name
-        </Button>  */}
+        <Button component={Link} to="/userProfile" color="inherit">
+          User Profile
+        </Button>
+        
         <Box flexGrow={1} />
         <UserMenu />
       </Toolbar>

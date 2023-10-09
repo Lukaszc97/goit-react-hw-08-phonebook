@@ -1,15 +1,11 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import {
-  createContactAsync,
-  selectContacts,
-} from '../../../Redux/PhonebookReducer/SliceReducer';
 import styles from './ContactForm.module.css';
-import { nanoid } from 'nanoid';
+import { createContactAsync } from '../../../Redux/PhonebookReducer/operations';
 
 const ContactForm = () => {
   const dispatch = useDispatch();
-  const contacts = useSelector(selectContacts);
+  const contacts = useSelector(state => state.contacts.items);
 
   const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
@@ -19,20 +15,14 @@ const ContactForm = () => {
 
     if (name.trim() === '' || phone.trim() === '') return;
 
-    const contactExists = contacts?.some(contact => contact.name === name);
+    const contactExists = contacts.some(contact => contact.name === name);
 
     if (contactExists) {
-      alert('Kontakt już istnieje.');
+      alert('Contact already exists.');
       return;
     }
 
-    const id = nanoid();
-    dispatch(
-      createContactAsync({
-        endpoint: 'contacts',
-        contactData: { id, name, phone },
-      })
-    );
+    dispatch(createContactAsync({ name, number: phone }));
     setName('');
     setPhone('');
   };
