@@ -4,7 +4,7 @@ import { toast } from 'react-toastify';
 
 axios.defaults.baseURL = 'https://connections-api.herokuapp.com';
 
-export const fetchContactsAsync = createAsyncThunk(
+export const fetchContactsAsync= createAsyncThunk(
   'contacts/fetchAll',
   async (_, thunkAPI) => {
     try {

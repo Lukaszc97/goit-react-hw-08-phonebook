@@ -1,4 +1,3 @@
-
 import axios from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
@@ -12,6 +11,7 @@ const clearAuthHeader = () => {
   axios.defaults.headers.common.Authorization = [];
 };
 
+
 export const register = createAsyncThunk(
   'auth/register',
   async (credential, thunkAPI) => {
@@ -24,6 +24,7 @@ export const register = createAsyncThunk(
     }
   }
 );
+
 
 export const logIn = createAsyncThunk(
   'auth/login',
@@ -47,18 +48,18 @@ export const logOut = createAsyncThunk('auth/logout', async (_, thunkAPI) => {
   }
 });
 
+
 export const refreshUser = createAsyncThunk(
   'auth/refresh',
   async (_, thunkAPI) => {
     const state = thunkAPI.getState();
     const persistedToken = state.auth.token;
 
-    if (persistedToken === null) {
+    if (!persistedToken) {
       return thunkAPI.rejectWithValue('Unable to fetch user');
     }
-
+    setAuthHeader(persistedToken);
     try {
-      setAuthHeader(persistedToken);
       const res = await axios.get('/users/current');
       return res.data;
     } catch (error) {
@@ -67,15 +68,25 @@ export const refreshUser = createAsyncThunk(
   }
 );
 
-export const updateUserName = createAsyncThunk(
-  'auth/updateUserName',
-  async (newName, thunkAPI) => {
+/* 
+export const changeUsername = createAsyncThunk(
+  'auth/changeUsername',
+  async (newUsername, thunkAPI) => {
+    const state = thunkAPI.getState();
+    const persistedToken = state.auth.token;
+
+    if (!persistedToken) {
+      return thunkAPI.rejectWithValue('Unable to change username');
+    }
+    setAuthHeader(persistedToken);
     try {
-      
-      const res = await axios.put('/users/name', { name: newName });
-      return { name: res.data.name };
+      const res = await axios.put('/users/update-username', {
+        username: newUsername,
+      });
+      return res.data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
     }
   }
 );
+ */

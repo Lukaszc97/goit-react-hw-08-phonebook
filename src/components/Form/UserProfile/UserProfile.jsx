@@ -1,33 +1,51 @@
-import React, { useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { refreshUser, updateUserName } from '../../../Redux/auth/operations';
-import styles from './UserProfile.module.css';
-import { selectorUser } from '../../../Redux/auth/selectors';
+/* import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { changeUsername } from '../../../Redux/auth/operations';
 
-export const UserProfile = () => {
-  const user = useSelector(selectorUser);
+function UserProfile() {
   const dispatch = useDispatch();
-  const [newName, setNewName] = useState('');
+  const user = useSelector(state => state.auth.user);
 
-  const handleUpdateProfile = () => {
-    dispatch(updateUserName({ name: newName })); 
-    dispatch(refreshUser());
-    setNewName('');
+  const [newUsername, setNewUsername] = useState('');
+
+  const handleUsernameChange = event => {
+    setNewUsername(event.target.value);
+  };
+
+  const handleSubmit = event => {
+    event.preventDefault();
+
+    
+    dispatch(changeUsername(newUsername))
+      .unwrap()
+      .then(() => {
+     
+        alert('Nazwa użytkownika została zmieniona');
+        setNewUsername('');
+      })
+      .catch(error => {
+       
+        alert(
+          'Wystąpił błąd podczas zmiany nazwy użytkownika: ' + error.message
+        );
+      });
   };
 
   return (
-    <div className={styles.userProfileContainer}>
-      <p className={styles.welcomeMessage}>Welcome, {user.name}!</p>
-      <input
-        type="text"
-        placeholder="New Name"
-        value={newName}
-        onChange={e => setNewName(e.target.value)}
-        className={styles.inputField}
-      />
-      <button onClick={handleUpdateProfile} className={styles.updateButton}>
-        Update Profile
-      </button>
+    <div>
+      <h2>Zmień nazwę użytkownika</h2>
+      <form onSubmit={handleSubmit}>
+        <input
+          type="text"
+          placeholder="Nowa nazwa użytkownika"
+          value={newUsername}
+          onChange={handleUsernameChange}
+        />
+        <button type="submit">Zmień</button>
+      </form>
     </div>
   );
-};
+}
+
+export default UserProfile;
+ */
